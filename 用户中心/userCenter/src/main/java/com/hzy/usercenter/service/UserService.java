@@ -2,6 +2,8 @@ package com.hzy.usercenter.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hzy.usercenter.domain.entity.User;
+import com.hzy.usercenter.domain.request.UserRegisterRequest;
+import com.hzy.usercenter.util.Result;
 
 
 /**
@@ -12,5 +14,11 @@ import com.hzy.usercenter.domain.entity.User;
  */
 public interface UserService extends IService<User> {
 
+    /**
+     *  用户注册
+     * @param user 注册参数
+     * @return 是否注册功能 或失败原因
+     */
+    Result userRegister(UserRegisterRequest user);
 }
 
