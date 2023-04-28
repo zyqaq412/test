@@ -5,13 +5,12 @@ import com.hzy.usercenter.service.EmailService;
 import com.hzy.usercenter.service.impl.EmailServiceImpl;
 import com.hzy.usercenter.util.RedisCache;
 import com.hzy.usercenter.util.Result;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Random;
 
 /**
  * @title: EmailController
@@ -29,13 +28,10 @@ public class EmailController {
     @PostMapping
     public Result SendMail(@RequestBody ToEmail toEmail){
         toEmail.setSubject("注册验证码");
-        Random random = new Random();
-        StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < 6; i++) {
-            buffer.append(random.nextInt(10));
-        }
-        toEmail.setContent(buffer.toString());
-        redisCache.setCacheObject(toEmail.getTo(),buffer.toString());
+        // RandomStringUtils  commons-lang3引进的工具类
+        String yzm = RandomStringUtils.randomNumeric(6);
+        toEmail.setContent(yzm);
+        redisCache.setCacheObject(toEmail.getTo(),yzm);
         // 验证码6分钟内有效
         redisCache.expire(toEmail.getTo(),60*10);
         return emailService.commonEmail(toEmail);

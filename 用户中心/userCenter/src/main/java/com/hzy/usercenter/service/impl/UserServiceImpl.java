@@ -2,6 +2,7 @@ package com.hzy.usercenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hzy.usercenter.domain.dto.ToEmail;
 import com.hzy.usercenter.domain.entity.User;
 import com.hzy.usercenter.domain.request.UserRegisterRequest;
 import com.hzy.usercenter.mapper.UserMapper;
@@ -45,5 +46,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return Result.ResultOk("注册成功");
         }
         return Result.error("两次输入的密码不一致");
+    }
+
+    @Override
+    public boolean isEmailNull(ToEmail toEmail) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getEmail,toEmail.getTo());
+        long count = count(queryWrapper);
+        if (count <1 )
+            return true;
+        return false;
     }
 }

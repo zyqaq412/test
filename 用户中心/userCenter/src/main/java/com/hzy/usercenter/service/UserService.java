@@ -1,6 +1,7 @@
 package com.hzy.usercenter.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hzy.usercenter.domain.dto.ToEmail;
 import com.hzy.usercenter.domain.entity.User;
 import com.hzy.usercenter.domain.request.UserRegisterRequest;
 import com.hzy.usercenter.util.Result;
@@ -20,5 +21,11 @@ public interface UserService extends IService<User> {
      * @return 是否注册功能 或失败原因
      */
     Result userRegister(UserRegisterRequest user);
+
+    /**
+     *  判断邮箱是否注册
+     * @return true|false
+     */
+    boolean isEmailNull(ToEmail toEmail);
 }
 
