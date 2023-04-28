@@ -44,7 +44,7 @@ public class EmailServiceImpl implements EmailService {
                 return Result.ResultOk(toEmail.getTo());
             } catch (MailException e) {
                 e.printStackTrace();
-                return new Result();
+                return Result.error("发送失败");
             }
         }
         return Result.error("该邮箱已注册");

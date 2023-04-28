@@ -36,6 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user.getUserPassword().equals(user.getCheckPassword())){
             User register = new User();
             register.setUseraccount(user.getUserAccount());
+            register.setEmail(user.getEmail());
             // 加密
             String password = DigestUtils.md5DigestAsHex((SALT + user.getUserPassword()).getBytes());
             register.setUserpassword(password);
