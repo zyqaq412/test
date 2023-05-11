@@ -1,4 +1,4 @@
-package com.hzy.usercenter.enums;
+package com.hzy.chatserver.enums;
 
 /**
  * @title: CodeEnum
@@ -8,10 +8,11 @@ package com.hzy.usercenter.enums;
  */
 public enum CodeEnum {
     // 成功
-    SUCCESS(200, "操作成功"),
-    LOGIN_SUCCESS(201, "操作成功"),
-    // 失败
-    ERROR(400,"操作失败");
+    SERVER_TO(0,"首次连接，推送消息"),
+    SESSION_ID(1,"连接id"),
+    MESSAGE(2,"消息"),
+    NOT_USERNAME(401,"没有用户名");
+
     int code;
     String msg;
 

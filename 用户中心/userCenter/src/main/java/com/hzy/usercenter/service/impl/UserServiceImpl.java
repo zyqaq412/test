@@ -7,10 +7,16 @@ import com.hzy.usercenter.domain.entity.User;
 import com.hzy.usercenter.domain.request.UserRegisterRequest;
 import com.hzy.usercenter.mapper.UserMapper;
 import com.hzy.usercenter.service.UserService;
+import com.hzy.usercenter.util.RedisCache;
 import com.hzy.usercenter.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * (User)表服务实现类
@@ -19,8 +25,11 @@ import org.springframework.util.DigestUtils;
  * @since 2023-04-28 14:23:33
  */
 @Service()
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     private static final String SALT = "zy";
+    @Autowired
+    private RedisCache redisCache;
     @Override
     public Result userRegister(UserRegisterRequest user) {
         // 虽然前端也会判断，但是有绕过前端直接发送请求的可能
@@ -57,5 +66,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (count <1 )
             return true;
         return false;
+    }
+
+    @Override
+    public Result login(UserRegisterRequest user, HttpServletRequest request, HttpServletResponse response) {
+        if(StringUtils.isAnyBlank(user.getUserAccount(),user.getUserPassword())){
+            return Result.error("用户名或密码为空");
+        }
+        user.setUserPassword(DigestUtils.md5DigestAsHex((SALT + user.getUserPassword())
+                .getBytes())) ;
+
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getUseraccount,user.getUserAccount());
+        queryWrapper.eq(User::getUserpassword,user.getUserPassword());
+        User flag = getOne(queryWrapper);
+        if (null == flag) {
+            log.info("user login failed, userAccount cannot match userPassword");
+            return Result.error("密码错误");
+        }
+
+        /*HttpSession session = request.getSession();
+        redisCache.setCacheObject("1",session);
+        Cookie cookie = new Cookie("sessionId", session.getId());
+        cookie.setHttpOnly(false);
+        response.addCookie(cookie);*/
+        return Result.ResultOk(flag.getUseraccount());
     }
 }

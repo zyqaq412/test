@@ -6,6 +6,9 @@ import com.hzy.usercenter.domain.entity.User;
 import com.hzy.usercenter.domain.request.UserRegisterRequest;
 import com.hzy.usercenter.util.Result;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * (User)表服务接口
@@ -27,5 +30,12 @@ public interface UserService extends IService<User> {
      * @return true|false
      */
     boolean isEmailNull(ToEmail toEmail);
+
+    /**
+     *  用户登录
+     * @param user 用户数据
+     * @return 返回是否成功
+     */
+    Result login(UserRegisterRequest user, HttpServletRequest request, HttpServletResponse response);
 }
 

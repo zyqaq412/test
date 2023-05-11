@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @title: UserController
  * @Author zxwyhzy
@@ -32,5 +35,11 @@ public class UserController {
             return userService.userRegister(user);
         }
         return Result.error("验证码错误");
+    }
+    @PostMapping("/login")
+    public Result userLogin(@RequestBody UserRegisterRequest user, HttpServletRequest request, HttpServletResponse response){
+        if (null == user) return Result.error("参数不能为空");
+
+        return userService.login(user,request,response);
     }
 }
