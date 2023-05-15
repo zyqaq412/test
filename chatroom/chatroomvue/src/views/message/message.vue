@@ -23,7 +23,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="18">
+      <el-col :span="16">
         <el-card class="chatroom-message">
           <div class="chatroom-message-header">{{ roomName }}</div>
           <div class="chatroom-message-body" id="message-box">
@@ -149,8 +149,7 @@ export default {
       console.log('收到 WebSocket 消息', event);
       const temp = JSON.parse(event.data)
       console.log('temp', temp);
-      console.log('code', temp.code);
-      if (temp.code == 401) {
+      if (temp.code === 401) {
         this.$message.error('登录过时请重新登录');
         this.$router.push('/login');
         return
@@ -167,13 +166,13 @@ export default {
         console.log('list', temp.data);
         this.messages = temp.data
       } else if (temp.code === 3) {
+        console.log('返回在线列表');
         this.users = temp.data
       } else if (temp.code === 4){
+        console.log('公告');
         this.notice = temp.data
       }
-
       if (temp.id == this.id) {
-
         setTimeout(() => {
           this.moveHuaLun()
         }, 20);
@@ -195,6 +194,7 @@ export default {
       }
       this.sendMsg.code = 2;
       this.sendMsg.data = this.tomsg;
+
       // 发送消息到 WebSocket 服务器
       this.websocket.send(JSON.stringify(this.sendMsg));
       this.tomsg.messageInput = "";
@@ -228,8 +228,9 @@ textarea {
   resize: none; /* 禁止拖动 */
 }
 .chatroom {
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 2%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -284,6 +285,7 @@ textarea {
 
 .chatroom-users {
   max-height: 400px; /* 最大高度为400像素 */
+  max-width: 260px;
   overflow-y: auto; /* 显示垂直滚动条，只有在内容溢出时才显示 */
   height: 100%;
 }

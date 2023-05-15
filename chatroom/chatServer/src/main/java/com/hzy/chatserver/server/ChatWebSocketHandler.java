@@ -81,6 +81,9 @@ public class ChatWebSocketHandler implements WebSocketHandler {
         USERS.add(user);
         session.getAttributes().put(session.getId(),user);
         session.getAttributes().put("sessionId",session.getId());
+
+        // 将连接id推送给前端
+        session.sendMessage(new TextMessage(JsonUtils.toJson(Result.set(CodeEnum.SESSION_ID,session.getId(),null))));
         // 推送在线列表
         pushUSERS();
         // 推送公告
@@ -95,19 +98,20 @@ public class ChatWebSocketHandler implements WebSocketHandler {
         Result<Object> objectResult = JsonUtils.parse(message.getPayload().toString(),Result.class);
         userMsg userMsg = JsonUtils.parseB(objectResult.getData().toString(), userMsg.class);
         String username = userMsg.getUser().getUsername();
+        long id = userMsg.getUser().getId();
         if (username == null || "".equals(username)){
             session.sendMessage(new TextMessage(JsonUtils.toJson(Result.error(CodeEnum.NOT_USERNAME))));
         }
        String mtext = userMsg.getMessageInput();
         // 指令 清空消息
         if (mtext.substring(0,1).equals("$")){
-            if (mtext.equals("$clear")&&username.equals("zxwy")){
+            if (mtext.equals("$clear")&&id==1){
                 msgList.removeAll(msgList);
                 broadcast(JsonUtils.toJson(Result.set(CodeEnum.SERVER_TO,null,msgList)));
                 return;
             }
             // 指令 发送公告
-            if (mtext.substring(0,3).equals("$gg")&&username.equals("zxwy")){
+            if (mtext.substring(0,3).equals("$gg")&&id==1){
                 notice.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
                 notice.setGg(mtext.substring(3));
                 broadcast(JsonUtils.toJson(Result.set(CodeEnum.NOTICE,null,notice)));
