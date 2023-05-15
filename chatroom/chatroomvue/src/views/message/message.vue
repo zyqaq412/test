@@ -82,6 +82,8 @@ export default {
         msg: "",
         data: {}
       },
+      //TODO 暂时用来判断是否需要跳转到消息最下面(以后用用户id判断)
+      //存放sessionId 以后用来实现私聊，私聊对象的sessionId(或用户id)
       id: "",
       roomName: "聊天室",
       messages: [
@@ -154,8 +156,8 @@ export default {
         this.$router.push('/login');
         return
       } else if (temp.code === 1) {
-        console.log('返回id');
-        this.id = temp.data
+        console.log('返回id',temp.data);
+        this.id = temp.id
       } else if (temp.code === 2) {
         console.log('消息');
         const newMessage = temp.data;
@@ -172,7 +174,9 @@ export default {
         console.log('公告');
         this.notice = temp.data
       }
-      if (temp.id == this.id) {
+      console.log('temp',temp.id);
+      console.log('this',this.id);
+      if (temp.id === this.id) {
         setTimeout(() => {
           this.moveHuaLun()
         }, 20);
