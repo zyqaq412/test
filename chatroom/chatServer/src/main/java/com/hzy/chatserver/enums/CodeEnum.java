@@ -11,6 +11,8 @@ public enum CodeEnum {
     SERVER_TO(0,"首次连接，推送消息"),
     SESSION_ID(1,"连接id"),
     MESSAGE(2,"消息"),
+    USER_ZX(3,"在线用户"),
+    NOTICE(4,"公告"),
     NOT_USERNAME(401,"没有用户名");
 
     int code;

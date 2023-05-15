@@ -1,12 +1,19 @@
 server:
   port: 8888
+
+
 spring:
+  redis:
+    host: 47.113.146.226 # Redis 服务器地址
+    port: 6379 # Redis 端口号
+    password:  # Redis 密码，如果没有则不需要配置
+    database: 0 # Redis 数据库编号
   mail:
     host: smtp.qq.com
     protocol: smtp
     default-encoding: UTF-8
     username: 2791517764@qq.com
-    password: sjrvyqncuanvddag
+    password:
     test-connection: true
     properties:
       mail:
@@ -18,7 +25,13 @@ spring:
     port: 587
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yhzx?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: 120125hzy.
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.113.146.226:3306/yhzx?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username:
+    password:
+    # MyBatis-Plus 配置文件
+
+
+
+

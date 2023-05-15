@@ -10,6 +10,6 @@ import lombok.Data;
  */
 @Data
 public class userMsg {
-    private String username;
+    private User user;
     private String messageInput;
 }

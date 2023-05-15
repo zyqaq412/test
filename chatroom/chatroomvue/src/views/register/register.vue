@@ -106,6 +106,8 @@ export default {
               message: '验证码发送成功',
               type: 'success'
             });
+          }else {
+            this.$message.error('验证码发送失败');
           }
       })
     }

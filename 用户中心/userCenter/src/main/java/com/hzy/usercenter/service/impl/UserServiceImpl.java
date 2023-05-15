@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzy.usercenter.domain.dto.ToEmail;
 import com.hzy.usercenter.domain.entity.User;
+import com.hzy.usercenter.domain.entity.vo.UserVo;
 import com.hzy.usercenter.domain.request.UserRegisterRequest;
 import com.hzy.usercenter.mapper.UserMapper;
 import com.hzy.usercenter.service.UserService;
@@ -85,11 +86,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return Result.error("密码错误");
         }
 
-        /*HttpSession session = request.getSession();
-        redisCache.setCacheObject("1",session);
-        Cookie cookie = new Cookie("sessionId", session.getId());
-        cookie.setHttpOnly(false);
-        response.addCookie(cookie);*/
-        return Result.ResultOk(flag.getUseraccount());
+        UserVo userVo = new UserVo();
+        userVo.setUsername(flag.getUseraccount());
+        userVo.setId(flag.getId());
+        return Result.ResultOk(userVo);
     }
 }

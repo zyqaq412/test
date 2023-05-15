@@ -4,6 +4,7 @@ import com.hzy.usercenter.domain.request.UserRegisterRequest;
 import com.hzy.usercenter.service.UserService;
 import com.hzy.usercenter.util.RedisCache;
 import com.hzy.usercenter.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2023/4/28 14:35
  * @Version 1.0
  */
+@Slf4j
 @RestController // 适用于编写restful风格的api，返回值默认为json类型
 @RequestMapping("/user")
 public class UserController {
@@ -38,6 +40,7 @@ public class UserController {
     }
     @PostMapping("/login")
     public Result userLogin(@RequestBody UserRegisterRequest user, HttpServletRequest request, HttpServletResponse response){
+        log.info("登录请求");
         if (null == user) return Result.error("参数不能为空");
 
         return userService.login(user,request,response);

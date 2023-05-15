@@ -3,7 +3,9 @@ package com.hzy.usercenter.service.impl;
 import com.hzy.usercenter.domain.dto.ToEmail;
 import com.hzy.usercenter.service.EmailService;
 import com.hzy.usercenter.service.UserService;
+import com.hzy.usercenter.util.RedisCache;
 import com.hzy.usercenter.util.Result;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -25,9 +27,20 @@ public class EmailServiceImpl implements EmailService {
     private String from;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisCache redisCache;
 
     public Result commonEmail(ToEmail toEmail) {
         if (userService.isEmailNull(toEmail)) {
+
+            toEmail.setSubject("注册验证码");
+            // RandomStringUtils  commons-lang3引进的工具类
+            String yzm = RandomStringUtils.randomNumeric(6);
+            toEmail.setContent(yzm);
+            redisCache.setCacheObject(toEmail.getTo(),yzm);
+            // 验证码6分钟内有效
+            redisCache.expire(toEmail.getTo(),60*10);
+
             //创建简单邮件消息
             SimpleMailMessage message = new SimpleMailMessage();
             //谁发的

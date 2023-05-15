@@ -11,7 +11,7 @@
           <el-input v-model="form.userAccount"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="userPassword">
-          <el-input type="userPassword" v-model="form.userPassword"></el-input>
+          <el-input type="password" v-model="form.userPassword"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="login">登录</el-button>
@@ -21,6 +21,7 @@
             </router-link></el-button>
         </el-form-item>
       </el-form>
+
     </div>
   </div>
 </template>
@@ -47,6 +48,10 @@ export default {
   },
   methods: {
     login() {
+      this.$message({
+        message: '请等待',
+        type: 'success'
+      });
       axios.post('/user/login', {
         userAccount: this.form.userAccount,
         userPassword: this.form.userPassword,
@@ -58,6 +63,7 @@ export default {
                 message: '登录成功',
                 type: 'success'
               });
+              console.log(res.data.data)
               this.$store.commit('setUsername',res.data.data)
               console.log(this.$store.state.username)
               this.$router.push('/message');
