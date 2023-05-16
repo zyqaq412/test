@@ -12,14 +12,7 @@
         <el-card class="chatroom-users">
           <div class="chatroom-users-header" >公告</div>
           <div id="gg">
-<!--            <vue-markdown :source="notice.time" :options="md"></vue-markdown>-->
-            <vue-markdown :source="notice.gg" :options="md"></vue-markdown>
-          </div>
-        </el-card>
-        <el-card class="chatroom-users">
-          <div class="chatroom-users-header">输入预览</div>
-          <div>
-            <vue-markdown :source="tomsg.messageInput" :options="md"></vue-markdown>
+            <div class="preview" v-html="show(notice.gg)"/>
           </div>
         </el-card>
       </el-col>
@@ -30,18 +23,20 @@
             <div class="chatroom-message-item" v-for="message in messages" :key="message.id">
               <div class="chatroom-message-sender">{{ message.sender }}</div>
               <div class="chatroom-message-time">{{ message.time }}</div>
-<!--              <div class="chatroom-message-text">{{ message.text }}</div>-->
               <div class="chatroom-message-text">
-                <vue-markdown :source="message.text" :options="md"></vue-markdown>
+                <div class="preview" v-html="show(message.text)"/>
               </div>
 
             </div>
           </div>
         </el-card>
         <div class="chatroom-input">
-<!--          <el-input v-model="tomsg.messageInput" placeholder="请输入消息" @keyup.enter.native="sendMessage"/>
-          <el-button type="primary" @click="sendMessage">发送</el-button>-->
-          <textarea v-model="tomsg.messageInput" @keydown.tab.prevent="insertTab"></textarea>
+
+          <mavon-editor id="edit" ref="myEditor" v-model="tomsg.messageInput"
+                        defaultOpen="edit"
+                        :toolbars="toolbars"
+                        :fullscreen="fullscreen"
+                        @imgAdd="addImg" />
           <el-button type="primary" @click="sendMessage">发送</el-button>
         </div>
       </el-col>
@@ -57,14 +52,27 @@ window.onbeforeunload = function (e) {
 
 import MarkdownIt from 'markdown-it'
 import VueMarkdown from 'vue-markdown'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+import axios from 'axios';
+import { marked } from 'marked'
+import hljs from 'highlight.js' // 代码块高亮
+import 'highlight.js/styles/github.css' // 代码块高亮样式
+import 'github-markdown-css' // 整体 markdown 样式
 export default {
 
   components: {
-    VueMarkdown
+    VueMarkdown,
+    'mavon-editor': mavonEditor.mavonEditor,
   },
+
   data() {
 
     return {
+      fullscreen:true,
+      toolbars :{
+        preview: true, // 预览
+      },
       notice:{
         gg:"",
         time:""
@@ -87,31 +95,19 @@ export default {
       id: "",
       roomName: "聊天室",
       messages: [
-        /*{ id: 1, sender: "张三", time: "10:30", text: "大家好啊！" },
-        { id: 2, sender: "李四", time: "10:31", text: "你好，很高兴见到你！" },
-        { id: 3, sender: "王五", time: "10:32", text: "我也很高兴见到你们！" },*/
+        /*{ id: 1, sender: "张三", time: "10:30", text: "大家好啊！" },*/
       ],
       users: [
         {
           id:'',username:''
         }
       ],
-      md:new MarkdownIt({
-        html: true,
-        highlight: function (str, lang) {
-          if (lang && hljs.getLanguage(lang)) {
-            try {
-              return '<pre class="hljs"><code>' +
-                  hljs.highlight(lang, str, true).value +
-                  '</code></pre>';
-            } catch (__) {}
-          }
-          return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-        }
-      })
     };
   },
   created() {
+    if (!mavonEditor.markdownIt) {
+      mavonEditor.markdownIt = new MarkdownIt();
+    }
     this.tomsg.user = this.$store.state.user
 
 /*    this.websocket = new WebSocket('ws://localhost:8080/chatroom?username='
@@ -131,6 +127,40 @@ export default {
 
   },
   methods: {
+    uploadImg(img) {
+      const formData = new FormData()
+      formData.append('img', img)
+      return axios.post('/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(response => {
+        console.log('上传图片', response.data);
+        return response.data.data
+      }).catch(error => {
+        throw new Error(error.message)
+      })
+    },
+    // 绑定@imgAdd event
+    addImg(pos, file) {
+      console.log("pos",pos)
+      // 第一步.将图片上传到服务器.
+      this.uploadImg(file).then(response => {
+        // TODO 图片能成功上传，但是这里转成url有问题
+        this.$refs.myEditor.$img2Url(pos, response)
+      }).catch(error => {
+        this.$message.error(error.msg)
+      })
+    },
+    show(text){
+      if (text === '' || text ===  undefined) return
+      return marked(text, {
+        highlight: function (code, lang) {
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          return hljs.highlight(code, { language }).value;
+        },
+      });
+    },
     insertTab(event) {
       const input = event.target;
 
@@ -156,11 +186,13 @@ export default {
         this.$router.push('/login');
         return
       } else if (temp.code === 1) {
-        console.log('返回id',temp.data);
+        console.log('返回id',temp.id);
         this.id = temp.id
       } else if (temp.code === 2) {
         console.log('消息');
+        console.log(temp.data.text );
         const newMessage = temp.data;
+
         newMessage.id = this.messages.length + 1;
         this.messages.push(newMessage)
 
@@ -223,13 +255,14 @@ export default {
 </script>
 
 <style>
-#gg{
-  height: 100px;
-}
-textarea {
+#edit{
   width: 1200px;
   height: 130px;
   resize: none; /* 禁止拖动 */
+}
+
+#gg{
+  height: 100px;
 }
 .chatroom {
   margin-left: 5%;
