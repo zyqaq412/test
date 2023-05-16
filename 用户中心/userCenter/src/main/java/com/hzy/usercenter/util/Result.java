@@ -48,6 +48,8 @@ public class Result<T> implements Serializable {
         result.setMsg(enums.getMsg());
         return result;
     }
+
+
     @Override
     public String toString() {
         return "Result{" +

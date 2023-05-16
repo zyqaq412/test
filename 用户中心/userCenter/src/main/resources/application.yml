@@ -31,7 +31,11 @@ spring:
     username:
     password:
     # MyBatis-Plus 配置文件
-
+oss:
+  endpoint: oss-cn-chengdu.aliyuncs.com
+  keyid:
+  keysecret:
+  bucketname:
 
 
 
