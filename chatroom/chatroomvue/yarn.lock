@@ -2452,6 +2452,11 @@
   "resolved" "https://registry.npmmirror.com/commander/-/commander-2.20.3.tgz"
   "version" "2.20.3"
 
+"commander@^2.20.3":
+  "integrity" "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="
+  "resolved" "https://registry.npmmirror.com/commander/-/commander-2.20.3.tgz"
+  "version" "2.20.3"
+
 "commander@^7.2.0":
   "integrity" "sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw=="
   "resolved" "https://registry.npmmirror.com/commander/-/commander-7.2.0.tgz"
@@ -2669,6 +2674,11 @@
   "integrity" "sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg=="
   "resolved" "https://registry.npmmirror.com/cssesc/-/cssesc-3.0.0.tgz"
   "version" "3.0.0"
+
+"cssfilter@0.0.10":
+  "integrity" "sha512-FAaLDaplstoRsDR8XGYH51znUN0UY7nMc6Z9/fvE8EXGwvJE9hu7W2vHwx1+bd6gCYnln9nLbzxFTrcO9YQDZw=="
+  "resolved" "https://registry.npmmirror.com/cssfilter/-/cssfilter-0.0.10.tgz"
+  "version" "0.0.10"
 
 "cssnano-preset-default@^5.2.14":
   "integrity" "sha512-t0SFesj/ZV2OTylqQVOrFgEh5uanxbO6ZAdeCrNsUQ6fVuXwYTxJPNAGvGTxHbD68ldIJNec7PyYZDBrfDQ+6A=="
@@ -3486,6 +3496,11 @@
   "resolved" "https://registry.npmmirror.com/get-stream/-/get-stream-6.0.1.tgz"
   "version" "6.0.1"
 
+"github-markdown-css@^5.2.0":
+  "integrity" "sha512-hq5RaCInSUZ48bImOZpkppW2/MT44StRgsbsZ8YA4vJFwLKB/Vo3k7R2t+pUGqO+ThG0QDMi96TewV/B3vyItg=="
+  "resolved" "https://registry.npmmirror.com/github-markdown-css/-/github-markdown-css-5.2.0.tgz"
+  "version" "5.2.0"
+
 "glob-parent@^5.1.2", "glob-parent@~5.1.2":
   "integrity" "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow=="
   "resolved" "https://registry.npmmirror.com/glob-parent/-/glob-parent-5.1.2.tgz"
@@ -3614,7 +3629,7 @@
   "resolved" "https://registry.npmmirror.com/highlight.js/-/highlight.js-10.7.3.tgz"
   "version" "10.7.3"
 
-"highlight.js@^11.5.1":
+"highlight.js@^11.8.0":
   "integrity" "sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg=="
   "resolved" "https://registry.npmmirror.com/highlight.js/-/highlight.js-11.8.0.tgz"
   "version" "11.8.0"
@@ -4251,13 +4266,6 @@
   "resolved" "https://registry.npmmirror.com/markdown-it-footnote/-/markdown-it-footnote-2.0.0.tgz"
   "version" "2.0.0"
 
-"markdown-it-highlightjs@^4.0.1":
-  "integrity" "sha512-EPXwFEN6P5nqR3G4KjT20r20xbGYKMMA/360hhSYFmeoGXTE6hsLtJAiB/8ID8slVH4CWHHEL7GX0YenyIstVQ=="
-  "resolved" "https://registry.npmmirror.com/markdown-it-highlightjs/-/markdown-it-highlightjs-4.0.1.tgz"
-  "version" "4.0.1"
-  dependencies:
-    "highlight.js" "^11.5.1"
-
 "markdown-it-ins@^2.0.0":
   "integrity" "sha512-DhLLxseIg2C7+AULvoyVI+zMeufR0QFvXJ2o0oV013hN5HvBvNh2rbVtTdxZjI959+hgo2AA0aRdtEIUaKPbhg=="
   "resolved" "https://registry.npmmirror.com/markdown-it-ins/-/markdown-it-ins-2.0.0.tgz"
@@ -4320,10 +4328,27 @@
     "mdurl" "~1.0.1"
     "uc.micro" "^1.0.1"
 
+"marked-highlight@^1.0.2":
+  "integrity" "sha512-Jh+4nqS3KxsOJfh7k8wgtvVAXPydrVgkgggmQgdrtmK5I+0b27cIYfW8YYYzxGgMy1JCZTRygr58CMhvZqFULA=="
+  "resolved" "https://registry.npmmirror.com/marked-highlight/-/marked-highlight-1.0.2.tgz"
+  "version" "1.0.2"
+
+"marked@^4 || ^5", "marked@^5.0.2":
+  "integrity" "sha512-TXksm9GwqXCRNbFUZmMtqNLvy3K2cQHuWmyBDLOrY1e6i9UvZpOTJXoz7fBjYkJkaUFzV9hBFxMuZSyQt8R6KQ=="
+  "resolved" "https://registry.npmmirror.com/marked/-/marked-5.0.2.tgz"
+  "version" "5.0.2"
+
 "match-at@^0.1.0":
   "integrity" "sha512-h4Yd392z9mST+dzc+yjuybOGFNOZjmXIPKWjxBd1Bb23r4SmDOsk2NYCU2BMUBGbSpZqwVsZYNq26QS3xfaT3Q=="
   "resolved" "https://registry.npmmirror.com/match-at/-/match-at-0.1.1.tgz"
   "version" "0.1.1"
+
+"mavon-editor@^2.10.4":
+  "integrity" "sha512-CFsBLkgt/KZBDg+SJYe2fyYv4zClY149PiwpH0rDAiiP4ae1XNs0GC8nBsoTeipsHcebDLN1QMkt3bUsnMDjQw=="
+  "resolved" "https://registry.npmmirror.com/mavon-editor/-/mavon-editor-2.10.4.tgz"
+  "version" "2.10.4"
+  dependencies:
+    "xss" "^1.0.6"
 
 "mdn-data@2.0.14":
   "integrity" "sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow=="
@@ -6449,6 +6474,14 @@
   "integrity" "sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA=="
   "resolved" "https://registry.npmmirror.com/ws/-/ws-8.13.0.tgz"
   "version" "8.13.0"
+
+"xss@^1.0.6":
+  "integrity" "sha512-og7TEJhXvn1a7kzZGQ7ETjdQVS2UfZyTlsEdDOqvQF7GoxNfY+0YLCzBy1kPdsDDx4QuNAonQPddpsn6Xl/7sw=="
+  "resolved" "https://registry.npmmirror.com/xss/-/xss-1.0.14.tgz"
+  "version" "1.0.14"
+  dependencies:
+    "commander" "^2.20.3"
+    "cssfilter" "0.0.10"
 
 "y18n@^5.0.5":
   "integrity" "sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA=="

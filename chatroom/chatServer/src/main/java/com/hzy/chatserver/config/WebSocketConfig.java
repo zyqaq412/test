@@ -26,14 +26,5 @@ public class WebSocketConfig implements WebSocketConfigurer {
         registry.addHandler(new ChatWebSocketHandler(), "/chatroom").setAllowedOrigins("*")
                 .addInterceptors(chatHandshakeInterceptor);
     }
-/*    @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(chatWebSocketHandler(), "/chatroom").setAllowedOrigins("*");
-    }
-
-    @Bean
-    public WebSocketHandler chatWebSocketHandler() {
-        return new ChatWebSocketHandler();
-    }*/
 }
 

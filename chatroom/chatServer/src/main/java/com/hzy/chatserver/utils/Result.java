@@ -29,6 +29,13 @@ public class Result<T> implements Serializable {
         return result;
     }
 
+    public static Result ok(Object data){
+        Result result = new  Result();
+        result.setData(data);
+        result.setCode(CodeEnum.SUCCESS.getCode());
+        result.setMsg(CodeEnum.SUCCESS.getMsg());
+        return result;
+    }
     public static Result set(CodeEnum enums,String id,Object data){
         Result result = new  Result();
         result.setCode(enums.getCode());

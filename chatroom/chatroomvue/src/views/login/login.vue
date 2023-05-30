@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <div id="bt">
       <h1>登录</h1>

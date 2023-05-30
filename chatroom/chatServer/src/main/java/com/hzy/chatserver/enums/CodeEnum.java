@@ -13,7 +13,10 @@ public enum CodeEnum {
     MESSAGE(2,"消息"),
     USER_ZX(3,"在线用户"),
     NOTICE(4,"公告"),
-    NOT_USERNAME(401,"没有用户名");
+    NOT_USERNAME(401,"没有用户名"),
+    SUCCESS(200,"操作成功");
+
+
 
     int code;
     String msg;

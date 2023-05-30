@@ -13,7 +13,7 @@ spring:
     protocol: smtp
     default-encoding: UTF-8
     username: 2791517764@qq.com
-    password:
+    password: sjrvyqncuanvddag
     test-connection: true
     properties:
       mail:
@@ -28,14 +28,14 @@ spring:
     #driver-class-name: com.mysql.cj.jdbc.Driver
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://47.113.146.226:3306/yhzx?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username:
-    password:
+    username: root
+    password: 120125hzy.
     # MyBatis-Plus 配置文件
 oss:
   endpoint: oss-cn-chengdu.aliyuncs.com
-  keyid:
-  keysecret:
-  bucketname:
+  keyid: LTAI5tDwkMpEN267sGWBDB2q
+  keysecret: sIVcsIMjXc4rZoDwjhxU5mFs4QDgz9
+  bucketname: zyqaq-blog
 
 
 

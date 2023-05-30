@@ -51,7 +51,6 @@ window.onbeforeunload = function (e) {
 };
 
 import MarkdownIt from 'markdown-it'
-import VueMarkdown from 'vue-markdown'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import axios from 'axios';
@@ -62,7 +61,6 @@ import 'github-markdown-css' // 整体 markdown 样式
 export default {
 
   components: {
-    VueMarkdown,
     'mavon-editor': mavonEditor.mavonEditor,
   },
 
@@ -230,7 +228,6 @@ export default {
       }
       this.sendMsg.code = 2;
       this.sendMsg.data = this.tomsg;
-
       // 发送消息到 WebSocket 服务器
       this.websocket.send(JSON.stringify(this.sendMsg));
       this.tomsg.messageInput = "";
@@ -257,12 +254,12 @@ export default {
 <style>
 #edit{
   width: 1200px;
-  height: 130px;
   resize: none; /* 禁止拖动 */
 }
 
 #gg{
-  height: 100px;
+  margin-top: 30px;
+  height: 100%;
 }
 .chatroom {
   margin-left: 5%;
@@ -275,7 +272,7 @@ export default {
 }
 
 .chatroom-message {
-  height: 450px;
+  height: 500px;
   margin-bottom: 10px;
 }
 
@@ -287,7 +284,7 @@ export default {
 }
 
 .chatroom-message-body {
-  max-height: 360px; /* 最大高度为400像素 */
+  max-height: 460px; /* 最大高度为400像素 */
   overflow-y: auto; /* 显示垂直滚动条，只有在内容溢出时才显示 */
   height: calc(100% - 30px);
   overflow-y: auto;
@@ -310,13 +307,14 @@ export default {
 .chatroom-message-text {
   word-break: break-all;
   border: 1px solid black;
-  background-color: lightgray;
+  background-color: aliceblue;
+  zoom: 0.9;
   padding: 5px;
 }
 
 .chatroom-input {
   display: flex;
-  margin-top: 40px;
+  margin-top: 20px;
   justify-content: space-between;
 }
 

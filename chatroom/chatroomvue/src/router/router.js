@@ -13,7 +13,8 @@ const routes = [
     /*{ path: '/message', component: ()=>import('../views/message/message.vue') }*/
     { path: '/message', component: ()=>import('../pages/chatroom.vue') },
     { path: '/login', component: ()=>import('../views/login/login.vue') },
-    { path: '/register', component: ()=>import('../views/register/register.vue') }
+    { path: '/register', component: ()=>import('../views/register/register.vue') },
+    {path: '/test', component: ()=>import('../暂存/test.vue')}
 ]
 
 // 创建 router 实例
