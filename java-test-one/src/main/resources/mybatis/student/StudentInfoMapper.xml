@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yizhi.student.dao.StudentInfoDao">
+
+
+
+    <select id="list" resultType="com.yizhi.student.domain.StudentInfoDO" parameterType="Map">
+        SELECT *
+        FROM s_student_info
+        <where>
+            <if test="name != null and name != ''">
+                AND student_name LIKE CONCAT('%', #{name, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="tocollegeId != null and tocollegeId  != ''">
+                AND tocollege = #{tocollegeId, jdbcType=INTEGER}
+            </if>
+            <if test="tomajorId != null and tomajorId != ''">
+                AND tomajor = #{tomajorId, jdbcType=INTEGER}
+            </if>
+            <if test="classId != null and classId != ''">
+                AND class_id = #{classId, jdbcType=INTEGER}
+            </if>
+        </where>
+                 LIMIT #{start, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM s_student_info
+    </select>
+
+    <select id="get" resultType="com.yizhi.student.domain.StudentInfoDO">
+        SELECT * FROM s_student_info WHERE id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <update id="update" parameterType="com.yizhi.student.domain.StudentInfoDO" >
+        UPDATE s_student_info
+        SET
+            student_id = #{studentId},
+            exam_id = #{examId},
+            class_id = #{classId},
+            student_name = #{studentName},
+            certify = #{certify},
+            mail_address = #{mailAddress},
+            foreign_lanaguage = #{foreignLanaguage},
+            student_sex = #{studentSex},
+            nation = #{nation},
+            political = #{political},
+            card_id = #{cardId},
+            telephone = #{telephone},
+            subject_type = #{subjectType},
+            tocollege = #{tocollege},
+            tocampus = #{tocampus},
+            tomajor = #{tomajor},
+            birthplace = #{birthplace},
+            grade = #{grade},
+            isstate = #{isstate},
+            birthday = #{birthday},
+            note = #{note},
+            add_time = #{addTime},
+            add_userid = #{addUserid},
+            edit_time = #{editTime},
+            edit_userid = #{editUserid}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="remove" parameterType="java.lang.Integer">
+        DELETE FROM s_student_info
+        WHERE id = #{id}
+    </delete>
+
+    <!-- MyBatis 映射文件中的插入语句 -->
+    <insert id="save" parameterType="com.yizhi.student.domain.StudentInfoDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO s_student_info (
+            student_id, exam_id, class_id, student_name, certify, mail_address,
+            foreign_lanaguage, student_sex, nation, political, card_id, telephone,
+            subject_type, tocollege, tocampus, tomajor, birthplace, grade,
+            isstate, birthday, note, add_time, add_userid, edit_time, edit_userid
+        )
+        VALUES (
+                   #{studentId}, #{examId}, #{classId}, #{studentName}, #{certify}, #{mailAddress},
+                   #{foreignLanaguage}, #{studentSex}, #{nation}, #{political}, #{cardId}, #{telephone},
+                   #{subjectType}, #{tocollege}, #{tocampus}, #{tomajor}, #{birthplace}, #{grade},
+                   #{isstate}, #{birthday}, #{note}, #{addTime}, #{addUserid}, #{editTime}, #{editUserid}
+               )
+    </insert>
+
+    <delete id="batchRemove" parameterType="java.util.List">
+        DELETE FROM s_student_info
+        WHERE id IN
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            ${id}
+        </foreach>
+    </delete>
+</mapper>
